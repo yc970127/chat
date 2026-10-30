@@ -1,51 +1,103 @@
-# Nuxt AI Chatbot Template
+# AISOGA Enterprise Knowledge Base
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+An AI-powered enterprise knowledge base and intelligent assistant built with **Nuxt 4**, **AI SDK**, and **Qdrant**.
 
-Full-featured AI Chatbot Nuxt application with authentication, chat history, collapsible sidebar, keyboard shortcuts, light & dark mode, command palette and more. Built using [Nuxt UI](https://ui.nuxt.com) components and integrated with [AI SDK](https://ai-sdk.dev) for a complete chat experience.
-
-- [Live demo](https://chat-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
-
-<a href="https://chat-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/chat-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/chat-light.png">
-    <img alt="Nuxt AI Chatbot Template" src="https://ui.nuxt.com/assets/templates/nuxt/chat-light.png">
-  </picture>
-</a>
-
-> The chat template for Vue is on https://github.com/nuxt-ui-templates/chat-vue.
+AISOGA is designed to help businesses organize internal knowledge, retrieve information efficiently, and build AI-powered knowledge assistants. By combining large language models with Retrieval-Augmented Generation (RAG), AISOGA enables users to interact with company documents and obtain accurate, context-aware answers.
 
 ## Features
 
-- ⚡️ **Streaming AI messages** powered by the [AI SDK](https://ai-sdk.dev) with thinking/reasoning support
-- 🤖 **Multiple model support** — Claude Haiku 5.5, Gemini 3 Flash and GPT-5.6 Luna via [Vercel AI Gateway](https://vercel.com/docs/ai-gateway)
-- 🔍 **Web search** with built-in provider tools (Anthropic, Google, OpenAI), toggleable from the prompt menu along with extended thinking
-- 🎤 **Dictation** in the prompt with live streaming transcription over WebSocket through [AI Gateway](https://vercel.com/docs/ai-gateway)
-- 📊 **Charts and weather** tool calling with rich UI rendering
-- 🔐 **Authentication** via GitHub OAuth using [nuxt-auth-utils](https://github.com/atinux/nuxt-auth-utils)
-- 💾 **Chat history persistence** using SQLite database ([Turso](https://turso.tech) in production) and [Drizzle ORM](https://orm.drizzle.team)
-- 📎 **File uploads** with drag & drop using [NuxtHub Blob](https://hub.nuxt.com/docs/blob) (requires authentication)
-- ✨ **Markdown rendering** with streaming code highlighting via [Comark](https://comark.dev)
+- ⚡ **AI-powered Conversations** — Streaming AI responses with support for multiple LLM providers through AI SDK.
+- 🤖 **Multiple AI Models** — Connect different language models and AI providers through a unified interface.
+- 📚 **Enterprise Knowledge Base** — Organize and manage company documents, technical manuals, product specifications, and business information.
+- 🔍 **Semantic Search** — Powered by Qdrant vector database for intelligent document retrieval.
+- 🧠 **RAG-based Question Answering** — Retrieve relevant knowledge and use it as context to generate more accurate answers.
+- 🔐 **User Authentication** — Secure access to conversations and enterprise knowledge.
+- 💾 **Chat History** — Persistent conversation storage using SQLite and Drizzle ORM.
+- 📎 **File Uploads** — Upload documents to build and expand your knowledge base.
+- ✨ **Markdown Rendering** — Rich Markdown rendering with code highlighting.
+- 🌐 **Modern Interface** — Responsive design with light and dark modes, collapsible sidebar, keyboard shortcuts, and command palette.
+
+## Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Nuxt 4 | Full-stack application framework |
+| Vue 3 | Frontend framework |
+| AI SDK | AI model integration and streaming |
+| Qdrant | Vector database and semantic search |
+| Drizzle ORM | Database ORM |
+| SQLite | Chat history and application data |
+| Bootstrap / UI Components | User interface |
+| RAG | Enterprise knowledge retrieval and generation |
+
+## Architecture
+
+AISOGA combines AI conversations, vector search, and enterprise document retrieval into one intelligent assistant.
+
+```text
+                 User
+                   |
+                   v
+             AISOGA Chat UI
+                   |
+                   v
+                AI SDK
+                   |
+          +--------+--------+
+          |                 |
+          v                 v
+      LLM Provider      Knowledge Retrieval
+          |                 |
+          |                 v
+          |              Qdrant
+          |                 |
+          |                 v
+          |          Relevant Documents
+          |                 |
+          +--------+--------+
+                   |
+                   v
+             AI Response
+                   |
+                   v
+                 User
+```
+
+### Knowledge Base Workflow
+
+1. Upload enterprise documents.
+2. Extract and process document content.
+3. Split documents into smaller text chunks.
+4. Generate vector embeddings.
+5. Store vectors and metadata in Qdrant.
+6. Retrieve relevant content when users ask questions.
+7. Pass retrieved context to the LLM to generate answers.
 
 ## Quick Start
 
+Clone the repository:
+
 ```bash
-npm create nuxt@latest -- -t ui/chat
+git clone https://github.com/yc970127/chat.git
+
+cd chat
 ```
 
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fchat&repository-name=chat&env=NUXT_OAUTH_GITHUB_CLIENT_ID%2CNUXT_OAUTH_GITHUB_CLIENT_SECRET%2CNUXT_SESSION_PASSWORD&stores=%5B%7B%22type%22%3A%22integration%22%2C%22integrationSlug%22%3A%22tursocloud%22%2C%22productSlug%22%3A%22database%22%2C%22protocol%22%3A%22storage%22%7D%2C%7B%22type%22%3A%22blob%22%7D%5D&demo-title=Nuxt+Chat+Template&demo-description=An+AI+chatbot+template+with+GitHub+authentication+and+persistent+chat+history+powered+by+Vercel+AI+SDK.&demo-url=https%3A%2F%2Fchat-template.nuxt.dev&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fchat-dark.png)
-
-## Setup
-
-Make sure to install the dependencies:
+Install dependencies:
 
 ```bash
 pnpm install
 ```
+
+Configure environment variables:
+
+Create a `.env` file in the project root.
+
+```env
+AI_GATEWAY_API_KEY=your-ai-gateway-api-key
+```
+
+Configure your database and other services according to your deployment environment.
 
 Run database migrations:
 
@@ -53,76 +105,97 @@ Run database migrations:
 pnpm db:migrate
 ```
 
-> [!NOTE]
-> In production, configure your database connection. On Vercel, add the [Turso integration](https://vercel.com/integrations/turso) to automatically provision `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN`.
-
-### AI Integration
-
-This template uses the [Vercel AI SDK](https://ai-sdk.dev/) for streaming AI responses with support for multiple providers through [Vercel AI Gateway](https://vercel.com/docs/ai-gateway). When deployed on Vercel, the AI Gateway is configured automatically.
-
-For local development, set your API key in `.env`:
-
-```bash
-AI_GATEWAY_API_KEY=<your-vercel-ai-gateway-api-key>
-```
-
-> [!TIP]
-> With [Vercel AI Gateway](https://vercel.com/docs/ai-gateway), you don't need individual API keys for OpenAI, Anthropic, etc. It provides a unified API to access hundreds of models through a single endpoint with automatic load balancing, fallbacks, and spend monitoring.
-
-### Authentication (Optional)
-
-This template uses [nuxt-auth-utils](https://github.com/atinux/nuxt-auth-utils) for authentication with GitHub OAuth.
-
-To enable authentication, [create a GitHub OAuth application](https://github.com/settings/applications/new) and set:
-
-```bash
-NUXT_OAUTH_GITHUB_CLIENT_ID=<your-github-oauth-app-client-id>
-NUXT_OAUTH_GITHUB_CLIENT_SECRET=<your-github-oauth-app-client-secret>
-NUXT_SESSION_PASSWORD=<your-password-minimum-32-characters>
-```
-
-### Blob Storage (Optional)
-
-This template uses [NuxtHub Blob](https://hub.nuxt.com/docs/blob) for file uploads, which supports multiple storage drivers:
-
-- **Local filesystem** (default for development, stored in `.data/blob`)
-- **[Vercel Blob](https://vercel.com/docs/vercel-blob)** (auto-configured when deployed to Vercel)
-- **[Cloudflare R2](https://hub.nuxt.com/docs/blob#set-a-driver)** (when deployed to Cloudflare)
-- **[Amazon S3](https://hub.nuxt.com/docs/blob#set-a-driver)** (with manual configuration)
-
-For **Vercel Blob**, assign a Blob Store to your project from the Vercel dashboard (Project → Storage), then set the token for local development:
-
-```bash
-BLOB_READ_WRITE_TOKEN=<your-vercel-blob-token>
-```
-
-> [!NOTE]
-> File uploads require authentication. See the [NuxtHub Blob documentation](https://hub.nuxt.com/docs/blob#set-a-driver) for configuring other storage drivers.
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+Start the development server:
 
 ```bash
 pnpm dev
 ```
 
-## Production
+Open http://localhost:3000 in your browser.
 
-Build the application for production:
+## AI Integration
+
+AISOGA uses the Vercel AI SDK to provide a unified interface for integrating different large language models.
+
+Supported integrations depend on the configured AI provider and model adapter.
+
+You can connect AI services such as:
+
+- OpenAI
+- Anthropic
+- Google Gemini
+- DeepSeek
+- Other OpenAI-compatible APIs
+
+## Enterprise Knowledge Base
+
+AISOGA uses Qdrant as its vector database to support semantic document retrieval.
+
+The knowledge base is designed for:
+
+- Company profiles and business information
+- Product documentation and specifications
+- Technical manuals and operating instructions
+- Equipment maintenance and troubleshooting
+- Sales and customer service knowledge
+- Internal procedures and company documentation
+
+### Vector Database
+
+Qdrant provides vector storage and similarity search for enterprise knowledge retrieval.
+
+Key capabilities include:
+
+- Vector embedding storage
+- Semantic similarity search
+- Metadata filtering
+- Document-level organization
+- Context retrieval for RAG applications
+
+## Deployment
+
+AISOGA can be deployed on your own server or cloud infrastructure.
+
+Before production deployment, configure:
+
+- AI provider API credentials
+- Database connection
+- Qdrant connection
+- File storage
+- Authentication and session security
+
+Build the application:
 
 ```bash
 pnpm build
 ```
 
-Locally preview production build:
+Preview the production build:
 
 ```bash
 pnpm preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+For more information, refer to the [Nuxt deployment documentation](https://nuxt.com/docs/getting-started/deployment).
 
-## Renovate integration
+## Project Goals
 
-Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.
+AISOGA aims to provide a flexible and extensible foundation for building enterprise AI assistants.
+
+Future development focuses on:
+
+- Advanced RAG retrieval strategies
+- Multi-knowledge-base management
+- Document parsing and processing
+- Hybrid search and reranking
+- Permission-based knowledge access
+- Multi-model AI integration
+- Enterprise knowledge management
+
+## License
+
+See the repository for license information.
+
+---
+
+**AISOGA — Connecting Enterprise Knowledge with Artificial Intelligence.**
